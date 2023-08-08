@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "596830552803",
+    "project_id": "flutter-app-9c917",
+    "storage_bucket": "flutter-app-9c917.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:596830552803:android:6783a971a71372b4ac3bd6",
+        "android_client_info": {
+          "package_name": "unilab.com.ph.myapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "596830552803-2jn4fr4q1btrhn1ng3idkuq8bnmtk3p6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJR0Tjc8gOHL4Z2OV3p0VRYV-D5skr3qI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "596830552803-2jn4fr4q1btrhn1ng3idkuq8bnmtk3p6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
