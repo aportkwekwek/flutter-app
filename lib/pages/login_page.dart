@@ -6,8 +6,11 @@ import 'package:myapp/components/proj_sign_button.dart';
 import 'package:myapp/components/proj_square_tile.dart';
 import 'package:myapp/components/proj_textfield.dart';
 
+import 'forgot_password_page.dart';
+
 class LoginPage extends StatefulWidget {
-  LoginPage({super.key});
+  final Function()? onTap;
+  const LoginPage({super.key, required this.onTap});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -15,8 +18,14 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
-
   final passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   void userSignIn() async {
     if (emailController.text != "" || passwordController.text != "") {
@@ -35,23 +44,21 @@ class _LoginPageState extends State<LoginPage> {
         Navigator.pop(context);
       } on FirebaseAuthException catch (e) {
         Navigator.pop(context);
-        wrongAuthentication();
+        wrongAuthentication(e.code);
       }
     }
   }
 
-  void wrongAuthentication() {
+  void wrongAuthentication(String message) {
     showDialog(
       context: context,
       builder: (context) {
-        return const AlertDialog(
+        return AlertDialog(
           backgroundColor: Colors.white,
           title: Center(
-            child: Text('Email or password is incorrect!',
-            style: TextStyle(
-              fontSize: 15,
-              fontFamily: 'Lato'
-              ),
+            child: Text(
+              message,
+              style: TextStyle(fontSize: 15, fontFamily: 'Lato'),
             ),
           ),
         );
@@ -66,11 +73,11 @@ class _LoginPageState extends State<LoginPage> {
       body: SafeArea(
         child: Center(
             child: SingleChildScrollView(
-              child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
               SizedBox(height: 50),
-              Icon(Icons.verified_user, size: 100),
+              Icon(Icons.account_circle, size: 100),
               SizedBox(height: 80),
               Text(
                 "Welcome back, you've been missed!",
@@ -95,12 +102,21 @@ class _LoginPageState extends State<LoginPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text(
-                      'Forgot password?',
-                      style: TextStyle(
-                          color: Colors.grey[700],
-                          fontFamily: 'Lato',
-                          fontSize: 12),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(
+                          builder: (context) {
+                            return ForgotPasswordPage();
+                          },
+                        ));
+                      },
+                      child: Text(
+                        'Forgot password?',
+                        style: TextStyle(
+                            color: Colors.blue[600],
+                            fontFamily: 'Lato',
+                            fontSize: 12),
+                      ),
                     ),
                   ],
                 ),
@@ -108,6 +124,7 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(height: 20),
               SignInButton(
                 buttonTap: userSignIn,
+                buttonText: 'Sign In',
               ),
               SizedBox(height: 15),
               Padding(
@@ -152,21 +169,25 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   Text(
                     'Not yet a member?',
-                    style: TextStyle(color: Colors.grey[700], fontFamily: 'Lato'),
+                    style:
+                        TextStyle(color: Colors.grey[700], fontFamily: 'Lato'),
                   ),
                   SizedBox(width: 5),
-                  Text(
-                    'Register now!',
-                    style: TextStyle(
-                        color: Colors.blue[600],
-                        fontFamily: 'Lato',
-                        fontWeight: FontWeight.bold),
+                  GestureDetector(
+                    onTap: widget.onTap,
+                    child: Text(
+                      'Register now!',
+                      style: TextStyle(
+                          color: Colors.blue[600],
+                          fontFamily: 'Lato',
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ],
               )
-                      ],
-                    ),
-            )),
+            ],
+          ),
+        )),
       ),
     );
   }
