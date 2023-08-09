@@ -2,6 +2,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:myapp/components/proj_datefield.dart';
 import 'package:myapp/components/proj_sign_button.dart';
 import 'package:myapp/components/proj_textfield.dart';
 
@@ -18,12 +19,20 @@ class _RegisterPageState extends State<RegisterPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
+  final firstNameController = TextEditingController();
+  final middleNameController = TextEditingController();
+  final lastNameController = TextEditingController();
+  final birthdayController = TextEditingController();
 
   @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
     confirmPasswordController.dispose();
+    firstNameController.dispose();
+    middleNameController.dispose();
+    lastNameController.dispose();
+    birthdayController.dispose();
     super.dispose();
   }
 
@@ -100,15 +109,36 @@ class _RegisterPageState extends State<RegisterPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(height: 25),
-              Icon(Icons.account_circle, size: 100),
-              SizedBox(height: 50),
               Text(
                 "Create an Account",
                 style: TextStyle(
                     color: Colors.grey[700], fontSize: 16, fontFamily: 'Lato'),
               ),
               SizedBox(height: 30),
+              MyTextField(
+                  controller: firstNameController,
+                  hintText: 'First Name',
+                  obscureText: false),
+              SizedBox(height: 10),
+              MyTextField(
+                  controller: middleNameController,
+                  hintText: 'Middle Name',
+                  obscureText: false),
+              SizedBox(height: 10),
+              MyTextField(
+                  controller: lastNameController,
+                  hintText: 'Last Name',
+                  obscureText: false),
+              SizedBox(height: 10),
+              Stack(
+                children: [
+                  ProjectDatePicker(
+                    controller: birthdayController,
+                    hintText: "Birthdate",
+                  ),
+                ],
+              ),
+              SizedBox(height: 10),
               MyTextField(
                 controller: emailController,
                 hintText: 'Email',
@@ -131,7 +161,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 buttonTap: userSignUp,
                 buttonText: 'Sign Up',
               ),
-              SizedBox(height: 50),
+              SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

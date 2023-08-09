@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:myapp/pages/login_or_register_page.dart';
 import '../components/proj_sign_button.dart';
 import '../components/proj_textfield.dart';
 
@@ -76,6 +75,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               buttonText: 'Reset Password',
             ),
           ],
-        ));
+        )
+      );
   }
 }
